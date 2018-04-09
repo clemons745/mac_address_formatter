@@ -12,7 +12,7 @@
 #
 #####
 
-import re
+import re, os
 
 def change_mac_address_format(oldMac, format):
 	#This function changes the format of a mac address to the specified format
@@ -95,3 +95,17 @@ def isValidMacAddress(mac):
 		if isMacInCorrectFormat(mac, macFormatList[i]):
 			return True
 	return False
+
+def fetchMacVendor(mac):
+	from manuf import manuf
+	
+	if not isValidMacAddress(mac):
+		return 'Not a valid mac address'
+	
+	if not isMacInCorrectFormat(mac, "00:00:00:00:00:00"):
+		mac = change_mac_address_format(mac, "00:00:00:00:00:00")
+	
+	p = manuf.MacParser(update=True)
+	vendor = p.get_all(mac).manuf
+	os.unlink('manuf')
+	return vendor
