@@ -14,19 +14,18 @@
 #
 #####
 
+
 def change_mac_address_format(oldMac, format):
 	#This function changes the format of a mac address to the specified format
-	
-	oldMac = normal_mac(oldMac) #set the mac address to format 000000000000 because that is easier to work with
+	oldMac = normal_mac(oldMac) #set the mac address to format 000000000000
 	newMacList = list(oldMac) #break the mac address out into a list
 	
 	#The below if statement will just return oldMac as it is, because it is already in 000000000000 format
-	
 	if format == '000000000000':
 		return oldMac
 		
-	#the below code steps through the mac address and inserts characters as needed to convert the mac address to the desired format
-	
+	# the below code steps through the mac address and inserts characters as 
+	# needed to convert the mac address to the desired format
 	elif format == '00:00:00:00:00:00':
 		for i in range(2, 17, 3):
 			newMacList.insert(i, ':')
@@ -55,14 +54,15 @@ def change_mac_address_format(oldMac, format):
 		raise Exception('Format is not supported by this module.')
 	
 	return ''.join(newMacList) #return the newly converted mac address
-	
+
+
 def normal_mac(oldMac):
 	#This function changes the format of any mac address to 0000000000000
 	return oldMac.replace('-', '').replace('.', '').replace(':', '')
 
+
 def isMacInCorrectFormat(mac, format):
 	#This function returns True or False depending on if the file is in the format specified
-
 	import re
 
 	if format == '000000000000':
@@ -84,16 +84,21 @@ def isMacInCorrectFormat(mac, format):
 		return False
 	
 	#check the mac address against the regex specified in the if/else statements above, and return True for False
-
 	if macRegex.search(mac) == None:
 		return False
 	else:
 		return True
 
+
 def isValidMacAddress(mac):
 	#This function returns True or False depending on if the item given is a mac address and in a supported format
-	
-	macFormatList = ["000000000000", "00:00:00:00:00:00", "0000.0000.0000", "00-00-00-00-00-00", "00.00.00.00.00.00", "0000:0000:0000", "000.000.000.000"]
+	macFormatList = ["000000000000",
+					"00:00:00:00:00:00", 
+					"0000.0000.0000", 
+					"00-00-00-00-00-00", 
+					"00.00.00.00.00.00", 
+					"0000:0000:0000", 
+					"000.000.000.000"]
 	
 	for i in range(len(macFormatList)):
 		
@@ -101,10 +106,13 @@ def isValidMacAddress(mac):
 			return True
 	return False
 
+
 def fetchMacVendor(mac):
 	#This function looks up the vendor of a mac address.  Returns None if unable to find it
-
-	from manuf import manuf
+	try:
+		from manuf import manuf
+	except:
+		raise Exception('manuf dependency not installed.  This can be installed by running "pip install manuf"')
 	import os
 	
 	if not isValidMacAddress(mac):

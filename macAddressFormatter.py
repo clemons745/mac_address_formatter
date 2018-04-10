@@ -19,17 +19,17 @@
 #####
 
 from mac_format_module import *
-import sys, logging, os
+import sys
+import logging
+import os
 
 logging.basicConfig(filename='logfile.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.debug('Start of Program')
 # Uncomment the line below to disable logging
 #logging.disable(logging.CRITICAL)
 
-logging.debug('Start of Program')
-
 # Collect the list of mac addresses from the user
 # Also make sure the user actually specifies a file
-
 try:
 	unformattedFilename = sys.argv[1]
 	logging.info('unformattedFile collected successfully as filename ' + unformattedFilename)
@@ -37,8 +37,7 @@ except:
 	logging.critical('User did not specify file of mac address to be converted.')
 	raise Exception('No file specified')
 
-#Make sure the file exists
-
+# Make sure the file exists
 if not os.path.exists(unformattedFilename):
 	logging.critical('The file the user specified does not exist.')
 	raise Exception('Specified file does not exist')
@@ -53,7 +52,6 @@ if not os.path.exists(unformattedFilename):
 # 00:00:00:00:00:00
 # 0000:0000:0000
 # 00-00-00-00-00-00
-
 while True:
 	print('''What format do you want your mac addresses in?
 1 000000000000
@@ -68,15 +66,18 @@ Selection Number: ''', end='')
 
 	desiredFormatSelection = input()
 	
-	if not desiredFormatSelection.isdecimal():  #ensure they entered a number
+	# Check to ensure the users selection is a valid selection
+	if not desiredFormatSelection.isdecimal(): #ensure they entered a number
 		print('\nSelection not valid.\n')
 		logging.error('User entered "' + desiredFormatSelection + '" which is not a number.')
 		continue
+
 	elif int(desiredFormatSelection) < 1 or int(desiredFormatSelection) > 7: #ensure the selection is a valid option
 		print('\nSelection not valid.\n')
 		logging.error('User entered "' + desiredFormatSelection + '" which is not a valid selection.')
 		continue
-	else:	#If this code executes, the selection was valid
+
+	else: #If this code executes, the selection was valid
 		logging.info('User selected "' + desiredFormatSelection + '" which is a valid selection.')
 		break
 
@@ -90,13 +91,12 @@ for i in range(len(unformattedMacList)):
 logging.info('MAC Addresses parsed from file, now formatting.')
 
 # Convert the mac addresses and save them to a new list
-
 formattedMacAddresses = []
 isErrorFound = False
 
 for mac in macList:
 
-	if isValidMacAddress(mac) == False: 			#check to see if the item really is a mac address, and if it is a supported format
+	if isValidMacAddress(mac) == False: #check to see if the item really is a mac address, and if it is a supported format
 		formattedMacAddresses.append(mac + ' is either not a mac address, or the format is not supported.')
 		logging.error('"' + mac + '" is either not a MAC Address, or the format is not supported.')
 		isErrorFound = True
@@ -135,7 +135,6 @@ for mac in macList:
 		raise Exception('Invalid Selection while formatting MAC address.  This exception should never trigger unless there is a bug in the code.')
 
 # Save list of new format to a file
-
 newMacAddressFile = open('Formatted_Mac_Addresses.txt', 'a')
 logging.info('Created file named "Formatted_Mac_Addresses.txt"')
 
@@ -152,5 +151,4 @@ print('\n\nMac Address have been formatted and saved in a file called "Formatted
 
 if isErrorFound:
 	print('There were problems converting the format of some of the MAC Addresses.  These were still saved to the new file with a message.  See logfile.txt for more information.')
-
 logging.debug('End of Progam')
