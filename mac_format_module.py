@@ -6,15 +6,13 @@
 #
 # Description: This is a module that will format mac addresses
 #
-# Version: 1.0
+# Version: 1.2
+#
+# Date: 4/9/2018
 #
 # Author: Tony Clemons (clemons745@gmail.com)
 #
 #####
-
-#this is a change on the dev branch
-
-import re, os
 
 def change_mac_address_format(oldMac, format):
 	#This function changes the format of a mac address to the specified format
@@ -65,6 +63,8 @@ def normal_mac(oldMac):
 def isMacInCorrectFormat(mac, format):
 	#This function returns True or False depending on if the file is in the format specified
 
+	import re
+
 	if format == '000000000000':
 		macRegex = re.compile(r'^\w{12}$')
 	elif format == '00:00:00:00:00:00':
@@ -80,8 +80,11 @@ def isMacInCorrectFormat(mac, format):
 	elif format == '000.000.000.000':
 		macRegex = re.compile(r'^\w{3}\.\w{3}\.\w{3}\.\w{3}$')
 	else:
-		raise Exception('Format is not supported by this module.')
+		#If we get to this else statement, that means the supplied format is not supported.  Return False
+		return False
 	
+	#check the mac address against the regex specified in the if/else statements above, and return True for False
+
 	if macRegex.search(mac) == None:
 		return False
 	else:
@@ -99,7 +102,10 @@ def isValidMacAddress(mac):
 	return False
 
 def fetchMacVendor(mac):
+	#This function looks up the vendor of a mac address.  Returns None if unable to find it
+
 	from manuf import manuf
+	import os
 	
 	if not isValidMacAddress(mac):
 		return 'Not a valid mac address'
@@ -109,5 +115,5 @@ def fetchMacVendor(mac):
 	
 	p = manuf.MacParser(update=True)
 	vendor = p.get_all(mac).manuf
-	os.unlink('manuf')
+	os.unlink('manuf') #delete the downloaded database to cleanup after ourselves
 	return vendor

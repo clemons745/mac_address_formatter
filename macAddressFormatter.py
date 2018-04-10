@@ -6,7 +6,9 @@
 #
 # Description: Changes the format of a given list of mac addresses
 #
-# Version: 1.0
+# Version: 1.2
+#
+# Date: 4/9/2018
 #
 # Expected Input: List of mac address (1 per line)
 #
@@ -19,8 +21,8 @@
 from mac_format_module import *
 import sys, logging, os
 
-
 logging.basicConfig(filename='logfile.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+# Uncomment the line below to disable logging
 #logging.disable(logging.CRITICAL)
 
 logging.debug('Start of Program')
@@ -63,6 +65,7 @@ while True:
 7 000.000.000.000
 
 Selection Number: ''', end='')
+
 	desiredFormatSelection = input()
 	
 	if not desiredFormatSelection.isdecimal():  #ensure they entered a number
