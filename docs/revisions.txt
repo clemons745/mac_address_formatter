@@ -1,0 +1,11 @@
+REVISIONS
+
+v1.2
+- Adjusted isMacInCorrectFormat() function in mac_format_module.py so it returns False if the MAC address is not supported, instead of raising an exception
+- Added more comments throughout the code to make it more readable
+- Moved some import statements around so they are not called unless needed
+
+v1.3
+- Added additional comments to the make the code more readable
+- Adjusted code to be compliant with PEP8
+- Added a step to warn the user if the output file already exists
