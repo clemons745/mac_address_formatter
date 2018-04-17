@@ -9,3 +9,6 @@ v1.3
 - Added additional comments to the make the code more readable
 - Adjusted code to be compliant with PEP8
 - Added a step to warn the user if the output file already exists
+- Created setup.py file
+- Added license
+- Updated README file
