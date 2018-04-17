@@ -60,6 +60,7 @@ if not os.path.exists(unformattedFilename):
 # 00:00:00:00:00:00
 # 0000:0000:0000
 # 00-00-00-00-00-00
+# 0000-0000-0000
 
 print('''This program will take the list of mac addresses storged in %s \
  and convert them to a desired format and store the new list in a text \
@@ -75,6 +76,7 @@ while True:
 5 00.00.00.00.00.00
 6 0000:0000:0000
 7 000.000.000.000
+8 0000-0000-0000
 
 Selection Number: ''', end='')
 
@@ -88,7 +90,7 @@ number.''' % desiredFormatSelection)
         continue
 
     # Ensure the selection is a valid option
-    elif int(desiredFormatSelection) < 1 or int(desiredFormatSelection) > 7:
+    elif int(desiredFormatSelection) < 1 or int(desiredFormatSelection) > 8:
         print('\nSelection not valid.\n')
         logging.error('''User entered "%s" which is not a \
 valid selection.''' % desiredFormatSelection)
@@ -195,6 +197,12 @@ or the format is not supported.''' % mac)
     elif desiredFormatSelection == '7':
         formattedMacAddresses.append(
             change_mac_address_format(mac, '000.000.000.000'))
+        logging.info(
+            'Converted "' + mac + '" to "' + formattedMacAddresses[-1] + '"')
+
+    elif desiredFormatSelection == '8':
+        formattedMacAddresses.append(
+            change_mac_address_format(mac, '0000-0000-0000'))
         logging.info(
             'Converted "' + mac + '" to "' + formattedMacAddresses[-1] + '"')
 

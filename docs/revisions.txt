@@ -12,3 +12,4 @@ v1.3
 - Created setup.py file
 - Added license
 - Updated README file
+- Added support for the MAC address format 0000-0000-0000

@@ -51,6 +51,10 @@ def change_mac_address_format(oldMac, format):
         for i in range(3, 15, 4):
             newMacList.insert(i, '.')
 
+    elif format == '0000-0000-0000':
+        for i in range(4, 14, 5):
+            newMacList.insert(i, '-')
+
     else:
         raise Exception('Format is not supported by this module.')
 
@@ -81,6 +85,8 @@ def isMacInCorrectFormat(mac, format):
         macRegex = re.compile(r'^\w{4}:\w{4}:\w{4}$')
     elif format == '000.000.000.000':
         macRegex = re.compile(r'^\w{3}\.\w{3}\.\w{3}\.\w{3}$')
+    elif format == '0000-0000-0000':
+        macRegex = re.compile(r'^\w{4}-\w{4}-\w{4}$')
     else:
         # If we get to this else statement, the format is not supported.
         # Return False
@@ -103,7 +109,8 @@ def isValidMacAddress(mac):
                      "00-00-00-00-00-00",
                      "00.00.00.00.00.00",
                      "0000:0000:0000",
-                     "000.000.000.000"]
+                     "000.000.000.000",
+                     "0000-0000-0000"]
 
     for i in range(len(macFormatList)):
 

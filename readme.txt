@@ -36,3 +36,4 @@ macAddressFormatter.py macAddressList.txt
 00:00:00:00:00:00
 0000:0000:0000
 00-00-00-00-00-00
+0000-0000-0000
