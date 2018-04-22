@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='macAddressFormatter',
-    version='1.3dev',
+    version='2.0dev',
     author='Tony Clemons',
     author_email='clemons745@gmail.com',
     description='A simple mac address formatter',
@@ -18,5 +18,6 @@ setup(
         'Natural Language :: English',
         'Topic :: Utilities',
         'Environment :: Console',
+        'Environment :: Win32 (MS Windows)'
     ],
 )

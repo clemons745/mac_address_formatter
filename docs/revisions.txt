@@ -13,3 +13,6 @@ v1.3
 - Added license
 - Updated README file
 - Added support for the MAC address format 0000-0000-0000
+
+v2.0
+- Wrote a simplistic GUI version
