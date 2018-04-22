@@ -15,4 +15,4 @@ v1.3
 - Added support for the MAC address format 0000-0000-0000
 
 v2.0
-- Wrote a simplistic GUI version
+- Wrote a simplistic GUI version for Windows
